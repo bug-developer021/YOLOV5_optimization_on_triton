@@ -1,0 +1,6 @@
+# nvidia
+nvidia-pyindex
+onnx-graphsurgeon
+# match the docker's trt version
+nvidia-tensorrt==8.2.3
+pycuda

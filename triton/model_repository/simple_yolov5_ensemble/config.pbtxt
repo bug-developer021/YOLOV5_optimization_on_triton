@@ -1,0 +1,60 @@
+name: "simple_yolov5_ensemble"
+platform: "ensemble"
+max_batch_size: 8
+input [
+  {
+    name: "ENSEMBLE_INPUT_0"
+    data_type: TYPE_FP32
+    dims: [3, 640, 640]
+  }
+]
+
+output [
+  {
+    name: "ENSEMBLE_OUTPUT_0"
+    data_type: TYPE_FP32
+    dims: [ 300, 6 ]
+  }
+]
+
+ensemble_scheduling {
+  step [
+    {
+      model_name: "simple_yolov5"
+      model_version: 1
+      input_map: {
+        key: "images"
+        value: "ENSEMBLE_INPUT_0"
+      }
+      output_map: {
+        key: "output"
+        value: "FILTER_BBOXES"
+      }
+    },
+    {
+      model_name: "nms"
+      model_version: 1
+      input_map: {
+        key: "candidate_boxes"
+        value: "FILTER_BBOXES"
+      }
+      output_map: {
+        key: "BBOXES"
+        value: "ENSEMBLE_OUTPUT_0"
+      }
+    }
+  ]
+}
+
+
+version_policy {
+    latest: {
+        num_versions: 1
+    }
+}
+
+parameters: { 
+  key: "FORCE_CPU_ONLY_INPUT_TENSORS" 
+  value: {string_value:"no"}
+  }
+

@@ -1,0 +1,51 @@
+name: "simple_yolov5_bls"
+backend: "python"
+max_batch_size: 8
+input [
+  {
+    name: "images"
+    data_type: TYPE_FP32
+    format: FORMAT_NCHW
+    dims: [ 3, 640, 640 ]
+  }
+]
+
+output [
+  {
+    name: "BBOXES"
+    data_type: TYPE_FP32
+    # padding number of bboxes to 300
+    dims: [ 300, 6 ]
+  }
+]
+
+# instance_group [
+#   {
+#     name: "simple_yolov5_bls"
+#     count: 1
+#     kind: KIND_GPU
+#     gpus: [0]
+#   }
+# ]
+
+model_warmup [
+{
+    batch_size: 8
+    name: "warmup_requests"
+    inputs: {
+        key: "images"
+        value: {
+            random_data: true
+            dims: [3 ,640, 640]
+            data_type: TYPE_FP32
+            }
+    }
+}
+]
+
+
+parameters: { 
+  key: "FORCE_CPU_ONLY_INPUT_TENSORS" 
+  value: {string_value:"no"}
+  }
+

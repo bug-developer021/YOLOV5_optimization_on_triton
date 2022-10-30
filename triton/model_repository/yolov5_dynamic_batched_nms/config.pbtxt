@@ -1,0 +1,80 @@
+
+name: "yolov5_batched_nms_dynamic"
+platform: "tensorrt_plan"
+backend: "tensorrt"
+default_model_filename: "model.plan"
+max_batch_size: 8
+
+input: [
+    {
+        name: "images"
+        data_type: TYPE_FP32
+        format: FORMAT_NONE
+        dims: [3, 640, 640]
+    }
+]
+
+output: [
+    {
+        name: "BatchedNMS"
+        data_type: TYPE_INT32
+        dims: [1]
+        label_filename: ""
+    },
+    {
+        name: "BatchedNMS_1"
+        data_type: TYPE_FP32
+        dims: [300, 4]
+        label_filename: ""
+    },
+    {
+        name: "BatchedNMS_2"
+        data_type: TYPE_FP32
+        dims: [300]
+        label_filename: ""
+    },
+    {
+        name: "BatchedNMS_3"
+        data_type: TYPE_FP32
+        dims: [300]
+        label_filename: ""
+    }
+]
+
+# batch_input: []
+# batch_output: []
+
+instance_group: [
+    {
+        name: "yolov5_batched_nms_dynamic"
+        kind: KIND_GPU
+        count: 1
+        gpus: [0]
+    }
+]
+
+version_policy {
+    latest: {
+        num_versions: 1
+    }
+}
+
+# dynamic_batching {
+#       preferred_batch_size: [8]
+#       max_queue_delay_microseconds: 1000
+# }
+
+model_warmup [
+    {
+        batch_size: 1
+        name: "warmup_requests"
+        inputs: {
+            key: "images"
+            value: {
+                random_data: true
+                dims: [3 ,640, 640]
+                data_type: TYPE_FP32
+                }
+        }
+    }
+]
