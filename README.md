@@ -54,7 +54,7 @@
 
 ![](./assets/radar_plot.png)
 
-结果分析[参考](./docs/bls_vs_ensemble.md#4性能分析)
+结果分析[参考](./docs/bls_vs_ensemble.md#4-性能分析)
 
 ---
 
