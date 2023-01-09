@@ -157,5 +157,5 @@ ensemble_scheduling {
 数据来源: [Benchmark](../README.md#benchmark)
 
 吞吐和时延是主要考虑的两个性能指标，时延三者差别不大，而在吞吐量上，`batched_nms_dynamic > Ensemble > BLS`， 原因为：
-- batched_nms_dynamic的inference和nms全都包含在trt engine中了，layer之间通过CUDA API来传输速度，效率最高
+- batched_nms_dynamic的inference和nms全都包含在trt engine中了，layer之间通过CUDA API来传输，效率最高
 -  Ensemble和BLS的inference和nms都是两个独立的model instance，其中BLS中python backend的Input tensor位于GPU上，而ensemble中的Input tensor被强制转换到CPU上，内存拷贝带来的开销比step并行执行的收益要大。因此在包含python backend的情况下，BLS的性能优于Ensemble
