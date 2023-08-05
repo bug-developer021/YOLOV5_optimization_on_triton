@@ -1,5 +1,7 @@
-# YOLOV5 optimization on Triton Inference Server
 Zh-CN| [English](README.md) 
+
+# YOLOV5 optimization on Triton Inference Server
+
 
 在Triton中部署yolov5目标检测服务, 并分别进行了如下优化：
 1. [轻量化Detect层的Output](./docs/custom_yolov5_detect_layer.md)
