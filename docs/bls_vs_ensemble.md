@@ -1,6 +1,6 @@
 # Triton Pipeines的实现方式及对比
 
-在[部署yolov5 Triton Pipelines](pipelines.md#2-triton-pipelines的实现方式)中，简单介绍了BLS和Ensemble这两种实现Triton Pipelines的方式，同时在[Benchmark](../README.md#benchmark)中，对两种Pipelines和[All in TensorRT Engine](./batchedNMS.md)的部署方式进行了性能测试，本文将对比介绍一下BLS和Ensemble, 同时对性能测试的结果进行解读
+在[部署yolov5 Triton Pipelines](pipelines.md#2-triton-pipelines的实现方式)中，简单介绍了BLS和Ensemble这两种实现Triton Pipelines的方式，同时在[Benchmark](../README_CN.md#benchmark)中，对两种Pipelines和[All in TensorRT Engine](./batchedNMS.md)的部署方式进行了性能测试，本文将对比介绍一下BLS和Ensemble, 同时对性能测试的结果进行解读
 
 ## 1 Python Backend
 
@@ -154,7 +154,7 @@ ensemble_scheduling {
     ```
 ---
 ## 4 性能分析
-数据来源: [Benchmark](../README.md#benchmark)
+数据来源: [Benchmark](../README_CN.md#benchmark)
 
 吞吐和时延是主要考虑的两个性能指标，时延三者差别不大，而在吞吐量上，`batched_nms_dynamic > Ensemble > BLS`， 原因为：
 - batched_nms_dynamic的inference和nms全都包含在trt engine中了，layer之间通过CUDA API来传输，效率最高
