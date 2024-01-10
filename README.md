@@ -10,7 +10,7 @@ Deploy Yolov5 object detection service  in Triton. The following optimizations h
 
 3. [Deploy via Triton Pipelines](./docs/pipelines_EN.md)
 
-Pipelines are implemented through `Ensemble` and `BLS` respectively. The infer module in Pipelines is based on the optimized TensorRT Engine in item 1 above, and the Postprocess module is implemented through Python Backend. The workflow refers to [How to deploy Triton Pipelines](./docs/pipelines_EN.md#3-How to deploy Triton Pipelines).
+Pipelines are implemented through `Ensemble` and `BLS` respectively. The infer module in Pipelines is based on the optimized TensorRT Engine in item 1 above, and the Postprocess module is implemented through Python Backend. The workflow refers to [How to deploy Triton Pipelines](./docs/pipelines_EN.md#3-How_to_deploy_Triton_Pipelines).
 
 ---
 ## Environment
